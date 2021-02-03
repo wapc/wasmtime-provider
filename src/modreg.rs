@@ -33,7 +33,7 @@ impl ModuleRegistry {
 
         let cx1 = cx1.build().unwrap(); // TODO: get rid of unwrap
 
-        let mut builder = wasi_common::old::snapshot_0::WasiCtxBuilder::new();
+        let mut builder = wasi_common::WasiCtxBuilder::new();
 
         let mut cx2 = builder.inherit_stdio().args(argv).envs(vars);
 

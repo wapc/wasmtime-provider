@@ -159,17 +159,13 @@ fn arrange_imports(
         .imports()
         .filter_map(|imp| {
             if let ExternType::Func(_) = imp.ty() {
+                let name = imp.name().unwrap();
+
                 match imp.module() {
-                    HOST_NAMESPACE => {
-                        Some(callback_for_import(imp.name(), host.clone(), store.clone()))
-                    }
+                    HOST_NAMESPACE => Some(callback_for_import(name, host.clone(), store.clone())),
                     WASI_UNSTABLE_NAMESPACE => {
                         let f = Extern::from(
-                            mod_registry
-                                .wasi_unstable
-                                .get_export(imp.name())
-                                .unwrap()
-                                .clone(),
+                            mod_registry.wasi_unstable.get_export(name).unwrap().clone(),
                         );
                         Some(f)
                     }
@@ -177,7 +173,7 @@ fn arrange_imports(
                         let f: Extern = Extern::from(
                             mod_registry
                                 .wasi_snapshot_preview1
-                                .get_export(imp.name())
+                                .get_export(name)
                                 .unwrap()
                                 .clone(),
                         );
