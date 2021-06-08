@@ -39,11 +39,11 @@ impl ModuleRegistry {
         Ok(ModuleRegistry {
             wasi_snapshot_preview1: wasmtime_wasi::snapshots::preview_1::Wasi::new(
                 store,
-                Rc::new(RefCell::new(cx1.build()?)),
+                Rc::new(RefCell::new(cx1.build())),
             ),
             wasi_unstable: wasmtime_wasi::snapshots::preview_0::Wasi::new(
                 store,
-                Rc::new(RefCell::new(cx2.build()?)),
+                Rc::new(RefCell::new(cx2.build())),
             ),
         })
     }
